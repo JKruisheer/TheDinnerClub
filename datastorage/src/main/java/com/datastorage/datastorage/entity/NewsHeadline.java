@@ -34,6 +34,11 @@ public class NewsHeadline {
     @Column(name = "header_news_website_id")
     private String newsWebsiteId;
 
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "newsHeadline")
+    private NewsDetails newsDetails;
+
     public Long getHeaderId() {
         return headerId;
     }
@@ -72,6 +77,14 @@ public class NewsHeadline {
 
     public void setNewsWebsiteId(String newsWebsiteId) {
         this.newsWebsiteId = newsWebsiteId;
+    }
+
+    public NewsDetails getNewsDetails() {
+        return newsDetails;
+    }
+
+    public void setNewsDetails(NewsDetails newsDetails) {
+        this.newsDetails = newsDetails;
     }
 
     @Override
