@@ -1,8 +1,10 @@
 package com.datastorage.datastorage.beans;
 
-import com.datastorage.datastorage.dao.NewsHeadlinesDao;
+import com.datastorage.datastorage.entity.User;
+import com.datastorage.datastorage.repository.NewsHeadlinesRepository;
 import com.datastorage.datastorage.entity.NewsDetails;
 import com.datastorage.datastorage.entity.NewsHeadline;
+import com.datastorage.datastorage.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +16,10 @@ import java.util.List;
 @Component
 public class NewsHeaderPostConstructor {
     @Autowired
-    NewsHeadlinesDao newsHeadlinesDao;
+    NewsHeadlinesRepository newsHeadlinesRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @PostConstruct
     public void insertSomeStuff(){
@@ -22,12 +27,16 @@ public class NewsHeaderPostConstructor {
         NewsDetails details = new NewsDetails("This is added by JK");
         newLine.setNewsDetails(details);
         details.setNewsHeadline(newLine);
-        List<NewsHeadline> headers = newsHeadlinesDao.findByHeaderDetails(newLine.getHeaderDetails());
+        List<NewsHeadline> headers = newsHeadlinesRepository.findByHeaderDetails(newLine.getHeaderDetails());
         if(headers.size() > 0){
             System.out.println("There is something in the database, so we are not going to insert anything");
         } else {
-            newsHeadlinesDao.save(newLine);
+            newsHeadlinesRepository.save(newLine);
             System.out.println("Nothing in the database so we are inserting " + newLine);
         }
+
+        this.userRepository.save(new User("Ramesh", "Fadatare", "test@Test.com"));
+        this.userRepository.save(new User("Jesse", "Kruisheer", "kruisheer@Test.com"));
+
     }
 }
