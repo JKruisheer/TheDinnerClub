@@ -41,7 +41,7 @@ public class NewsHeaderPostConstructor {
 
         User user = new User();
         user.setUserName("jesse");
-        user.setPassword(passwordEncoder.encode("dewy"));
+        user.setPassword(passwordEncoder.encode("test"));
         user.setFirstName("Jesse");
         user.setLastName("Kruisheer");
         userDetailsRepository.save(user);
