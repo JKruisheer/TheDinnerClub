@@ -3,11 +3,6 @@ import {fetchUserData} from '../api/authenticationService';
 
 const Recipies = () => {
 
-    useEffect(() => {
-        // Update the document title using the browser API
-        console.log(fetchUserData().data)
-      }, []);
-
     return (
         <div>
             This is the recipies component

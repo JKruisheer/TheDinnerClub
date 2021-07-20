@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   IconButton,
   Avatar,
@@ -34,9 +34,18 @@ import {
 import {withRouter} from "react-router-dom";
 import HomeComponent from './Home'
 import Recipies from './Recipies'
+import {fetchUserData} from '../api/authenticationService';
 
 const Dashboard = (props) => {
 
+      useEffect(() => {
+        fetchUserData().then((response)=>{
+            setUserData(response.data.firstName + ' ' + response.data.lastName)
+        })
+        // Update the document title using the browser API
+    }, []);
+
+   const [userData, setUserData] = useState("")
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [itemName, setItemName] = useState("Home");
 
@@ -170,7 +179,7 @@ const Dashboard = (props) => {
                         alignItems="flex-start"
                         spacing="1px"
                         ml="2">
-                        <Text fontSize="sm">Jesse Kruisheer</Text>
+                        <Text fontSize="sm">{userData}</Text>
                         <Text fontSize="xs" color="gray.600">
                           Admin
                         </Text>
@@ -185,7 +194,6 @@ const Dashboard = (props) => {
                     borderColor={useColorModeValue('gray.200', 'gray.700')}>
                     <MenuItem>Profile</MenuItem>
                     <MenuItem>Settings</MenuItem>
-                    <MenuItem>Billing</MenuItem>
                     <MenuDivider />
                     <MenuItem onClick={logout}>Sign out</MenuItem>
                   </MenuList>
