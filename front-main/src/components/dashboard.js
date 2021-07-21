@@ -41,11 +41,14 @@ const Dashboard = (props) => {
       useEffect(() => {
         fetchUserData().then((response)=>{
             setUserData(response.data.firstName + ' ' + response.data.lastName)
+            console.log(response.data)
+            setUserRank(response.data.rank)
         })
         // Update the document title using the browser API
     }, []);
 
-   const [userData, setUserData] = useState("")
+    const [userData, setUserData] = useState("")
+    const [userRank, setUserRank] = useState("")
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [itemName, setItemName] = useState("Home");
 
@@ -73,13 +76,15 @@ const Dashboard = (props) => {
             h="full"
             {...rest}>
             <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-              <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-                Logo
+              <Text fontSize="2xl" 
+              // fontFamily="monospace" 
+              fontWeight="bold">
+                The Diner Club
               </Text>
               <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
             {LinkItems.map((link) => (
-              <NavItem key={link.name} icon={link.icon} name={link.name}>
+              <NavItem key={link.name} icon={link.icon} name={link.name} onClick={onClose} >
                 {link.name}
               </NavItem>
             ))}
@@ -91,7 +96,9 @@ const Dashboard = (props) => {
         return (
           <Link onClick={() =>
             setCurrentTab(rest.name)
+            
           } 
+          
           style={{ textDecoration: 'none' }}>
             <Flex
               align="center"
@@ -151,16 +158,16 @@ const Dashboard = (props) => {
               fontSize="2xl"
               fontFamily="monospace"
               fontWeight="bold">
-              Logo
+              The Diner Club
             </Text>
       
             <HStack spacing={{ base: '0', md: '6' }}>
-              <IconButton
+              {/* <IconButton
                 size="lg"
                 variant="ghost"
                 aria-label="open menu"
                 icon={<FiBell />}
-              />
+              /> */}
               <Flex alignItems={'center'}>
                 <Menu>
                   <MenuButton
@@ -168,20 +175,20 @@ const Dashboard = (props) => {
                     transition="all 0.3s"
                     _focus={{ boxShadow: 'none' }}>
                     <HStack>
-                      <Avatar
+                      {/* <Avatar
                         size={'sm'}
                         src={
                           'https://media-exp1.licdn.com/dms/image/C5603AQFyly3fPFRTww/profile-displayphoto-shrink_200_200/0/1591002076403?e=1631750400&v=beta&t=HBddZM9CrV3P18hCu954fNPj60ZHgvIgJrduujjgILM'
                         }
-                      />
+                      /> */}
                       <VStack
-                        display={{ base: 'none', md: 'flex' }}
+                        display={{ base: '0', md: 'flex' }}
                         alignItems="flex-start"
                         spacing="1px"
                         ml="2">
                         <Text fontSize="sm">{userData}</Text>
                         <Text fontSize="xs" color="gray.600">
-                          Admin
+                          {userRank}
                         </Text>
                       </VStack>
                       <Box display={{ base: 'none', md: 'flex' }}>

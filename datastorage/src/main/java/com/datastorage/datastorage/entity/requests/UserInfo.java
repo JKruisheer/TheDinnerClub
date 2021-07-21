@@ -1,18 +1,9 @@
 package com.datastorage.datastorage.entity.requests;
 
 public class UserInfo {
-    private Long id;
     private String firstName;
     private String lastName;
-    private String username;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private String rank;
 
     public String getFirstName() {
         return firstName;
@@ -30,11 +21,11 @@ public class UserInfo {
         this.lastName = lastName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getRank() {
+        return rank;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setRank(String rank) {
+        this.rank = rank;
     }
 }

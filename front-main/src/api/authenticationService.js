@@ -14,6 +14,14 @@ export const userLogin=(authRequest)=>{
     })
 }
 
+export const userSignup=(authRequest)=>{
+    return axios({
+        'method':'POST',
+        'url':`${process.env.hostUrl||'http://localhost:8080'}/api/v1/auth/signup`,
+        'data':authRequest
+    })
+}
+
 export const fetchUserData=()=>{
     return axios({
         method:'GET',

@@ -18,7 +18,7 @@ public class User implements UserDetails {
     @Column(name = "USER_NAME", unique = true)
     private String userName;
 
-    @Column(name = "USER_KEY")
+    @Column(name = "PASSWORD")
     private String password;
 
     @Column(name = "CREATED_ON")
@@ -41,6 +41,9 @@ public class User implements UserDetails {
 
     @Column(name = "enabled")
     private boolean enabled=true;
+
+    @Column(name = "user_rank")
+    private String rank;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -149,4 +152,11 @@ public class User implements UserDetails {
         this.enabled = enabled;
     }
 
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
 }
