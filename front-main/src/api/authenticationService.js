@@ -14,7 +14,7 @@ export const userLogin=(authRequest)=>{
     })
 }
 
-export const fetchUserData=(authRequest)=>{
+export const fetchUserData=()=>{
     return axios({
         method:'GET',
         url:`${process.env.hostUrl||'http://localhost:8080'}/api/v1/auth/userinfo`,
