@@ -39,13 +39,33 @@ public class NewsHeaderPostConstructor {
             System.out.println("Nothing in the database so we are inserting " + newLine);
         }
 
-        User user = new User();
-        user.setUserName("jesse");
-        user.setPassword(passwordEncoder.encode("test"));
-        user.setFirstName("Jesse");
-        user.setLastName("Kruisheer");
-        user.setRank("Admin");
-        userDetailsRepository.save(user);
+        User jessesUser = userDetailsRepository.findByUserName("jesse");
+        if(jessesUser == null){
+            User user = new User();
+            user.setUserName("jesse");
+            user.setPassword(passwordEncoder.encode("test"));
+            user.setFirstName("Jesse");
+            user.setLastName("Kruisheer");
+            user.setRank("Admin");
+            userDetailsRepository.save(user);
+        } else {
+            System.out.println("Jesse already exists");
+        }
+
+        User dewyUser = userDetailsRepository.findByUserName("dewy");
+        System.out.println("Haiii");
+        if(dewyUser == null){
+            User user = new User();
+            user.setUserName("dewy");
+            user.setPassword(passwordEncoder.encode("test"));
+            user.setFirstName("Dewy");
+            user.setLastName("Atteveld");
+            user.setRank("Design specialist");
+            userDetailsRepository.save(user);
+        } else {
+            System.out.println("Dewy already exists");
+        }
+
 
     }
 }

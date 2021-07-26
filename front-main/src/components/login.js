@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./login.css";
-import log from "./img/eating.svg";
-import register from "./img/breakfast.svg";
+import log from "./img/untitled1.svg";
+import register from "./img/untitled2.svg";
 import { withRouter } from "react-router-dom";
 import { userLogin, userSignup } from "../api/authenticationService";
 import { useToast } from "@chakra-ui/react"
