@@ -8,7 +8,7 @@ import java.sql.Date;
 import java.util.Collection;
 
 @Entity
-@Table(name = "XX_USERS")
+@Table(name = "TDC_USERS")
 public class User implements UserDetails {
 
     @Id
