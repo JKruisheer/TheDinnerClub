@@ -1,15 +1,18 @@
 package com.datastorage.datastorage.beans;
 
+import com.datastorage.datastorage.entity.Recipies;
 import com.datastorage.datastorage.entity.User;
 import com.datastorage.datastorage.repository.NewsHeadlinesRepository;
 import com.datastorage.datastorage.entity.NewsDetails;
 import com.datastorage.datastorage.entity.NewsHeadline;
+import com.datastorage.datastorage.repository.RecipiesRespository;
 import com.datastorage.datastorage.repository.UserDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,6 +24,9 @@ public class NewsHeaderPostConstructor {
 
     @Autowired
     UserDetailsRepository userDetailsRepository;
+
+    @Autowired
+    RecipiesRespository recipiesRespository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -51,7 +57,6 @@ public class NewsHeaderPostConstructor {
         } else {
             System.out.println("Jesse already exists");
         }
-
         User dewyUser = userDetailsRepository.findByUserName("dewy");
         System.out.println("Haiii");
         if(dewyUser == null){
