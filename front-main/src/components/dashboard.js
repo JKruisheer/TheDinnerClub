@@ -17,7 +17,8 @@ import {
   MenuButton,
   MenuDivider,
   MenuItem,
-  MenuList
+  MenuList,
+  Avatar
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -42,8 +43,10 @@ const Dashboard = (props) => {
         
          if(!unmounted){
             fetchUserData().then((response)=>{
+              console.log(response)
             setUserData(response.data.firstName + ' ' + response.data.lastName)
             setUserRank(response.data.rank)
+            setUseAvatarLink(response.data.avatarLink)
           })
         }
 
@@ -51,8 +54,10 @@ const Dashboard = (props) => {
         // Update the document title using the browser API
     }, []);
 
+    //TODO CONVERT TO ARRAY
     const [userData, setUserData] = useState("")
     const [userRank, setUserRank] = useState("")
+    const [userAvatarLink, setUseAvatarLink] = useState("")
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [itemName, setItemName] = useState("Home");
 
@@ -179,12 +184,12 @@ const Dashboard = (props) => {
                     transition="all 0.3s"
                     _focus={{ boxShadow: 'none' }}>
                     <HStack>
-                      {/* <Avatar
+                      <Avatar
                         size={'sm'}
                         src={
-                          'https://media-exp1.licdn.com/dms/image/C5603AQFyly3fPFRTww/profile-displayphoto-shrink_200_200/0/1591002076403?e=1631750400&v=beta&t=HBddZM9CrV3P18hCu954fNPj60ZHgvIgJrduujjgILM'
+                          userAvatarLink
                         }
-                      /> */}
+                      />
                       <VStack
                         display={{ base: '0', md: 'flex' }}
                         alignItems="flex-start"

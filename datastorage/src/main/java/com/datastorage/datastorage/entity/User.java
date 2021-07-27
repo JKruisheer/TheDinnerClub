@@ -45,6 +45,9 @@ public class User implements UserDetails {
     @Column(name = "user_rank")
     private String rank;
 
+    @Column(name = "USER_AVATAR_LINK")
+    private String avatarLink;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -158,5 +161,13 @@ public class User implements UserDetails {
 
     public void setRank(String rank) {
         this.rank = rank;
+    }
+
+    public String getAvatarLink() {
+        return avatarLink;
+    }
+
+    public void setAvatarLink(String avatarLink) {
+        this.avatarLink = avatarLink;
     }
 }

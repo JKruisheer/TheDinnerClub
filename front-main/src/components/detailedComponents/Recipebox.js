@@ -1,6 +1,6 @@
 import React from "react";
 import { Collapse, Button, Box } from "@chakra-ui/react"
-import { useDisclosure } from "@chakra-ui/react"
+import { useDisclosure, Text } from "@chakra-ui/react"
 
 const Recipebox = ({ values }) => {
   const { isOpen, onToggle } = useDisclosure();
@@ -12,11 +12,11 @@ const Recipebox = ({ values }) => {
           p="60px"
           color="white"
           m={2}
-          bgGradient="linear(to-l, #000000,#FFD700)"
+          bgGradient="linear(to-l, #E6E6FA, #E0FFFF)"
           rounded="md"
           shadow="md"
         >
-          {values.description}
+          <Text color="black">{values.description}</Text>
         </Box>
       </Collapse>
     </Box>

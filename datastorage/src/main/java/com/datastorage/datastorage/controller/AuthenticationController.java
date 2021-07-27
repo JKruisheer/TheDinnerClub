@@ -62,6 +62,7 @@ public class AuthenticationController {
         userInfo.setFirstName(userObj.getFirstName());
         userInfo.setLastName(userObj.getLastName());
         userInfo.setRank(userObj.getRank());
+        userInfo.setAvatarLink(userObj.getAvatarLink());
         return ResponseEntity.ok(userInfo);
     }
 

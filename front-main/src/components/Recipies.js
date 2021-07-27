@@ -5,6 +5,7 @@ import { Input } from "@chakra-ui/react"
 
 const Recipies = () => {
     const [recipies, setRecipies] = useState([]);
+    const [value, setValue] = useState('')
 
     useEffect(() => {
         let unmounted = false;
@@ -21,9 +22,14 @@ const Recipies = () => {
 
     return (
         <div>
-            <Input placeholder="Please enter a filter" />
+            <Input value={value} onChange={e => setValue(e.target.value)} placeholder="Search" />
              {
-                recipies.map(recipies =>
+                recipies.filter(recipies => {
+                    if (!value) return true
+                    if (recipies.headerText.toUpperCase().includes(value.toUpperCase())) {
+                      return true
+                    }
+                  }).map(recipies =>
                   <Recipebox key={recipies.id} values={recipies}></Recipebox>
                 )
               }

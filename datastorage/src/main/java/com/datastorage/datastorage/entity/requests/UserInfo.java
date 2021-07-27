@@ -4,6 +4,7 @@ public class UserInfo {
     private String firstName;
     private String lastName;
     private String rank;
+    private String avatarLink;
 
     public String getFirstName() {
         return firstName;
@@ -27,5 +28,13 @@ public class UserInfo {
 
     public void setRank(String rank) {
         this.rank = rank;
+    }
+
+    public String getAvatarLink() {
+        return avatarLink;
+    }
+
+    public void setAvatarLink(String avatarLink) {
+        this.avatarLink = avatarLink;
     }
 }

@@ -28,6 +28,7 @@ public class DebugUserInserter {
             user.setFirstName("Jesse");
             user.setLastName("Kruisheer");
             user.setRank("Admin");
+            user.setAvatarLink("https://media-exp1.licdn.com/dms/image/C5603AQFyly3fPFRTww/profile-displayphoto-shrink_200_200/0/1591002076403?e=1631750400&v=beta&t=HBddZM9CrV3P18hCu954fNPj60ZHgvIgJrduujjgILM");
             userDetailsRepository.save(user);
         } else {
             System.out.println("Jesse already exists");
@@ -40,6 +41,7 @@ public class DebugUserInserter {
             user.setFirstName("Dewy");
             user.setLastName("Atteveld");
             user.setRank("Design specialist");
+            user.setAvatarLink("http://www.werkenaandetoekomst.nl/wp-content/uploads/Dewy200x320.png");
             userDetailsRepository.save(user);
         } else {
             System.out.println("Dewy already exists");
