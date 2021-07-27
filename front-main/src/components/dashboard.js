@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {
   IconButton,
-  Avatar,
   Box,
   CloseButton,
   Flex,
@@ -18,8 +17,7 @@ import {
   MenuButton,
   MenuDivider,
   MenuItem,
-  MenuList,
-  Button
+  MenuList
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -28,22 +26,28 @@ import {
   FiStar,
   FiSettings,
   FiMenu,
-  FiBell,
   FiChevronDown,
 } from 'react-icons/fi';
 import {withRouter} from "react-router-dom";
 import HomeComponent from './Home'
 import Recipies from './Recipies'
 import {fetchUserData} from '../api/authenticationService';
+import { useToast } from "@chakra-ui/react"
+
 
 const Dashboard = (props) => {
-
+      const toast = useToast()
       useEffect(() => {
-        fetchUserData().then((response)=>{
+        let unmounted = false;
+        
+         if(!unmounted){
+            fetchUserData().then((response)=>{
             setUserData(response.data.firstName + ' ' + response.data.lastName)
-            console.log(response.data)
             setUserRank(response.data.rank)
-        })
+          })
+        }
+
+        return () => unmounted = true;
         // Update the document title using the browser API
     }, []);
 
