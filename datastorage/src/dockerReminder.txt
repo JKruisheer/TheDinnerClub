@@ -1,0 +1,9 @@
+//docker tag 999a1bf713fa whiteghast/thedinerclub:latest
+
+//docker images
+
+//docker-compose build
+
+//docker-compose up
+
+//docker-compose down

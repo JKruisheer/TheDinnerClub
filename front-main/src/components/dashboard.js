@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {
   IconButton,
-  Avatar,
   Box,
   CloseButton,
   Flex,
@@ -19,7 +18,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  Button
+  Avatar
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -28,27 +27,37 @@ import {
   FiStar,
   FiSettings,
   FiMenu,
-  FiBell,
   FiChevronDown,
 } from 'react-icons/fi';
 import {withRouter} from "react-router-dom";
 import HomeComponent from './Home'
 import Recipies from './Recipies'
 import {fetchUserData} from '../api/authenticationService';
+import { useToast } from "@chakra-ui/react"
+
 
 const Dashboard = (props) => {
-
+      const toast = useToast()
       useEffect(() => {
-        fetchUserData().then((response)=>{
+        let unmounted = false;
+        
+         if(!unmounted){
+            fetchUserData().then((response)=>{
+              console.log(response)
             setUserData(response.data.firstName + ' ' + response.data.lastName)
-            console.log(response.data)
             setUserRank(response.data.rank)
-        })
+            setUseAvatarLink(response.data.avatarLink)
+          })
+        }
+
+        return () => unmounted = true;
         // Update the document title using the browser API
     }, []);
 
+    //TODO CONVERT TO ARRAY
     const [userData, setUserData] = useState("")
     const [userRank, setUserRank] = useState("")
+    const [userAvatarLink, setUseAvatarLink] = useState("")
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [itemName, setItemName] = useState("Home");
 
@@ -175,12 +184,12 @@ const Dashboard = (props) => {
                     transition="all 0.3s"
                     _focus={{ boxShadow: 'none' }}>
                     <HStack>
-                      {/* <Avatar
+                      <Avatar
                         size={'sm'}
                         src={
-                          'https://media-exp1.licdn.com/dms/image/C5603AQFyly3fPFRTww/profile-displayphoto-shrink_200_200/0/1591002076403?e=1631750400&v=beta&t=HBddZM9CrV3P18hCu954fNPj60ZHgvIgJrduujjgILM'
+                          userAvatarLink
                         }
-                      /> */}
+                      />
                       <VStack
                         display={{ base: '0', md: 'flex' }}
                         alignItems="flex-start"
