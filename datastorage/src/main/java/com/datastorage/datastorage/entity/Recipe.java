@@ -20,6 +20,9 @@ public class Recipe {
     @Column(name = "RECIPE_DESCRIPTION")
     private String description;
 
+    @Column(name = "IMAGE_LINK")
+    private String imageLink;
+
     public Long getId() {
         return id;
     }
@@ -50,6 +53,14 @@ public class Recipe {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     //    private Long timeToCreate;

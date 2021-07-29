@@ -4,12 +4,13 @@ import dashBoard from "./components/dashboard";
 import ProtectedRoute from "./ProtectedRoute";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
+import theme from "@chakra-ui/react";
 
 function App() {
   const user_key = localStorage.getItem("USER_KEY");
 
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Router>
         <Route
           path="/auth/login"
