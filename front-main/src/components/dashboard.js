@@ -32,8 +32,10 @@ import {
 import {withRouter} from "react-router-dom";
 import HomeComponent from './Home'
 import Recipies from './Recipies'
+import AddRecipies from './AddRecipies'
 import {fetchUserData} from '../api/authenticationService';
 import { useToast } from "@chakra-ui/react"
+import {ColorModeSwitcher} from '../ColorModeSwitcher';
 
 
 const Dashboard = (props) => {
@@ -175,8 +177,8 @@ const Dashboard = (props) => {
                 size="lg"
                 variant="ghost"
                 aria-label="open menu"
-                icon={<FiBell />}
-              /> */}
+                icon={<FiBell />}/>          */}
+                <ColorModeSwitcher></ColorModeSwitcher>
               <Flex alignItems={'center'}>
                 <Menu>
                   <MenuButton
@@ -226,6 +228,8 @@ const Dashboard = (props) => {
                 return <HomeComponent></HomeComponent>
             case "Recepten":
                 return <Recipies></Recipies>
+            case "Voeg recept toe":
+                return <AddRecipies></AddRecipies>
               default:
                 return <HomeComponent></HomeComponent>;
           }
