@@ -1,0 +1,51 @@
+version: '3.1'
+services:
+  app:
+    # container_name: datastorage
+    # image: springbootbackend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/news_storage
+    # build:
+    #   context: datastorage # Use an image built from the specified dockerfile in the `polling-app-server` directory.
+    #   dockerfile: Dockerfile
+    image: whiteghast/thedinerclub:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - backend
+      - frontend
+  db:
+    image: postgres
+    ports:
+      - "5433:5433"
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=news_storage
+    networks:
+      - backend 
+      
+  app-client:
+    # build:
+    #   # context: front-main # Use an image built from the specified dockerfile in the `polling-app-client` directory.
+    #   # dockerfile: Dockerfile
+    #   
+    image: whiteghast/thedinerclub:frontend
+    ports:
+      - "9090:80" # Map the exposed port 80 on the container to port 9090 on the host machine
+    
+    restart: always
+    depends_on:
+      - app
+    networks:
+      - frontend 
+# Volumes
+volumes:
+  db-data:
+
+# Networks to be created to facilitate communication between containers
+networks:
+  backend:
+  frontend:
