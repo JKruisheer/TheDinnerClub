@@ -3,12 +3,14 @@ import {fetchAllRecipies} from '../api/recipiesService';
 import Recipebox from './detailedComponents/Recipebox';
 import DetailedRecipebox from './detailedComponents/DetailedRecipeBox';
 import { Input, SimpleGrid } from "@chakra-ui/react"
+import { useMediaQuery } from "@chakra-ui/react"
 
 const Recipies = () => {
     const [recipies, setRecipies] = useState([]);
     const [value, setValue] = useState('')
-
     const [rendered, setRendered] = useState(true)
+    const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)")
+    
 
     const callback = useCallback(() => {
       setRendered(false);
@@ -42,7 +44,7 @@ const Recipies = () => {
     return (
       <div>
       {rendered ? <Input value={value} onChange={e => setValue(e.target.value)} placeholder="Search" /> : null}
-      {rendered ? <SimpleGrid columns={3} minChildWidth="450px" spacing={10}> 
+      {rendered ? <SimpleGrid columns={3} minChildWidth={isLargerThan1280 ? "450px" : "350px"} justifyContent="center" spacing={5}> 
       {
             recipies.filter(recipies => {
                 if (!value) return true

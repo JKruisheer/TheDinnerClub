@@ -210,12 +210,12 @@ const Login = (props) => {
                 required
               />
             </div>
-            <input
-              type="submit"
-              className="btn"
+            <button type="submit"
+              className="btn solid"
               value="Sign up"
-              onClick={handleSignup}
-            />
+              onClick={handleSignup}>Sign up</button>
+              
+            
           </form>
         </div>
       </div>

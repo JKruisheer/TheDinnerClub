@@ -1,5 +1,5 @@
 import React from "react";
-import { Collapse, Button, Box } from "@chakra-ui/react"
+import { Collapse, Button, Box, ButtonGroup, IconButton } from "@chakra-ui/react"
 import { useDisclosure, Text } from "@chakra-ui/react"
 import {
   Flex,
@@ -8,13 +8,13 @@ import {
   Image
 
 } from '@chakra-ui/react';
+import { AiOutlineLike } from "react-icons/ai"
+import { AiOutlineDislike } from "react-icons/ai"
 
 const Recipebox = ({ values, parentCallBack }) => {
   return (
     
-    <Box m={2} alignItems="left"
-    
-    justifyContent="left">
+    <Box m={2}>
       <Cards values={values} pcb = {parentCallBack}></Cards>
     </Box>
   );
@@ -67,9 +67,19 @@ function Cards({values, pcb}){
         </chakra.p>
 
         <Flex justifyContent="end" mt={4}>
-        <Button m={2} onClick={onToggle}>{values.headerText}</Button>
+        <Button m={2} onClick={onToggle} whiteSpace= "normal">{values.headerText}</Button>
         <Button m={2} onClick={() => {pcb()}}>Expand details</Button>
+        </Flex>
+        <Flex justifyContent="left" mt={4}>
+          <ButtonGroup size="sm" isAttached variant="outline">
+            <IconButton aria-label="Add to friends" icon={<AiOutlineLike/>}/>
+            <Button mr="-px" color="Green">1</Button>
+          </ButtonGroup>
 
+          <ButtonGroup ml="1rem" size="sm" isAttached variant="outline">
+            <IconButton aria-label="Add to friends" icon={<AiOutlineDislike/>}/>
+            <Button mr="-px" color="Red">-6</Button>
+          </ButtonGroup>
         </Flex>
         <Collapse direction='left' in={isOpen} animateOpacity>
         <Box
@@ -78,8 +88,7 @@ function Cards({values, pcb}){
           m={2}
           bgGradient="linear(to-l, #E6E6FA, #E0FFFF)"
           rounded="md"
-          shadow="md"
-        >
+          shadow="md">
           <Text color="black">{values.description}</Text>
         </Box>
       </Collapse>
