@@ -34,13 +34,27 @@ import HomeComponent from './Home'
 import Recipies from './Recipies'
 import AddRecipies from './AddRecipies'
 import {fetchUserData} from '../api/authenticationService';
-import { useToast } from "@chakra-ui/react"
 import {ColorModeSwitcher} from '../ColorModeSwitcher';
-
+import jwt_decode from "jwt-decode";
+import { useToast } from "@chakra-ui/react"
 
 const Dashboard = (props) => {
-      const toast = useToast()
+  const toast = useToast()
       useEffect(() => {
+        if (localStorage.getItem("USER_KEY")) {
+          const jwt_Token_decoded = jwt_decode(localStorage.getItem("USER_KEY"));
+          if (jwt_Token_decoded.exp * 1000 < Date.now()) {
+            localStorage.clear();
+            toast({
+              title: "Session expired.",
+              description: 'Please login again',
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+            })
+          } 
+        }
+
         let unmounted = false;
         
          if(!unmounted){
@@ -49,12 +63,13 @@ const Dashboard = (props) => {
             setUserData(response.data.firstName + ' ' + response.data.lastName)
             setUserRank(response.data.rank)
             setUseAvatarLink(response.data.avatarLink)
+          }).catch(err => {
+            console.log(err);
           })
         }
 
         return () => unmounted = true;
-        // Update the document title using the browser API
-    }, []);
+    }, [toast]);
 
     //TODO CONVERT TO ARRAY
     const [userData, setUserData] = useState("")
@@ -164,13 +179,14 @@ const Dashboard = (props) => {
               icon={<FiMenu />}
             />
       
-            <Text
+            {/* <Text
               display={{ base: 'flex', md: 'none' }}
               fontSize="2xl"
               fontFamily="monospace"
-              fontWeight="bold">
+              fontWeight="bold"
+              ml={5}>
               The Diner Club
-            </Text>
+            </Text> */}
       
             <HStack spacing={{ base: '0', md: '6' }}>
               {/* <IconButton

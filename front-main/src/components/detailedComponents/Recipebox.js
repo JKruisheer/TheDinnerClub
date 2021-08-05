@@ -49,7 +49,7 @@ function Cards({values, pcb}){
             borderWidth={2}
             borderColor={useColorModeValue("brand.500", "brand.400")}
             alt="Testimonial avatar"
-            src={values.imageLink}
+            src={!values.imageLink ? "https://images0.persgroep.net/rcs/inNa6d_SRsUo0GRl9UwbMk5Z1Wc/diocontent/63534838/_crop/16/49/827/1154/_fitwidth/694/?appId=21791a8992982cd8da851550a453bd7f&quality=0.8" : values.imageLink}
           />
         </Flex>
 
