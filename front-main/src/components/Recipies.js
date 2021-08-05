@@ -33,19 +33,12 @@ const Recipies = () => {
 
     }, []);
 
-    function GetComponent(){
-      if(rendered){
-        return 
-      } else {
-        return 
-      }
-  }
-
     return (
       <div>
       {rendered ? <Input value={value} onChange={e => setValue(e.target.value)} placeholder="Search" /> : null}
       {rendered ? <SimpleGrid columns={3} minChildWidth={isLargerThan1280 ? "450px" : "350px"} justifyContent="center" spacing={5}> 
       {
+          // eslint-disable-next-line
             recipies.filter(recipies => {
                 if (!value) return true
                 if (recipies.headerText.toUpperCase().includes(value.toUpperCase())) {

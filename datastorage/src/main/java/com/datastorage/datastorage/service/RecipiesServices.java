@@ -17,5 +17,9 @@ public class RecipiesServices {
         return recipiesRespository.findByUserId(userId);
     }
 
+    public void insertARecipe(Recipe rec){
+        recipiesRespository.save(rec);
+    }
+
 
 }
