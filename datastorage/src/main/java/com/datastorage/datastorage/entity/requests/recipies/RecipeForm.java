@@ -4,11 +4,15 @@ public class RecipeForm {
     private String title;
     private String description;
     private String imageLink;
+    private int preparationTime;
+    private int difficulty;
 
-    public RecipeForm(String title, String description, String imageLink) {
+    public RecipeForm(String title, String description, String imageLink, int preparationTime, int difficulty) {
         this.title = title;
         this.description = description;
         this.imageLink = imageLink;
+        this.preparationTime = preparationTime;
+        this.difficulty = difficulty;
     }
 
     public String getTitle() {
@@ -33,5 +37,21 @@ public class RecipeForm {
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
+    }
+
+    public int getPreparationTime() {
+        return preparationTime;
+    }
+
+    public void setPreparationTime(int preparationTime) {
+        this.preparationTime = preparationTime;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
     }
 }

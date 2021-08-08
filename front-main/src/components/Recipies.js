@@ -25,8 +25,9 @@ const Recipies = () => {
         
         if(!unmounted){
             fetchAllRecipies().then((response)=>{
-              console.log(response.data)
+                console.log(response.data)
                 setRecipies(response.data)
+                console.log(recipies)
             })
        }
        return () => unmounted = true;

@@ -11,9 +11,8 @@ import {
   FormLabel,
   Textarea,
   Image,
-  HStack,
-  useColorModeValue,
-  VStack
+  InputGroup,
+  InputRightAddon, Select
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 
@@ -25,6 +24,8 @@ const AddRecipies = () => {
     initialValues: {
       title: "",
       description: "",
+      preparationTime: "",
+      difficulty: "",
       imageLink: "",
     },
     onSubmit: (values, { resetForm }) => {
@@ -91,9 +92,36 @@ const AddRecipies = () => {
                 onChange={formik.handleChange}
                 value={formik.values.description}
               />
+              <FormLabel>Preparation time</FormLabel>
+              <InputGroup bg="white" size="sm">
+              <Input
+                id="preparationTime"
+                name="preparationTime"
+                type="number"
+                bg="white"
+                onChange={formik.handleChange}
+                value={formik.values.preparationTime}
+              />
+                <InputRightAddon bg="white" children="minutes" />
+              </InputGroup>
+              <FormLabel>Difficulty</FormLabel>
+                {/* <Input
+                  // id="preparationTime"
+                  // name="preparationTime"
+                  // type="number"
+                  // bg="white"
+                  // onChange={formik.handleChange}
+                  // value={formik.values.preparationTime}
+                /> */}
+                <Select id="difficulty" bg="white"
+                   name="difficulty" placeholder="Select option" onChange={formik.handleChange}
+                  value={formik.values.difficulty}>
+                  <option value="1">Makkelijk</option>
+                  <option value="2">Gemiddeld</option>
+                  <option value="3">Moeilijk</option>
+                </Select>
               <FormLabel>Image link</FormLabel>
-
-                <Input
+              <Input
                   id="imageLink"
                   name="imageLink"
                   type="text"
@@ -101,7 +129,7 @@ const AddRecipies = () => {
                   onChange={formik.handleChange}
                   value={formik.values.imageLink}
                 />
-                {formik.values.imageLink ? <Image
+                {formik.values.imageLink && <Image
                   w={200}
                   h="fit-content"
                   fit="cover"
@@ -111,7 +139,7 @@ const AddRecipies = () => {
                   //borderColor={useColorModeValue("brand.500", "brand.400")}
                   alt="Not a valid image url"
                   src={formik.values.imageLink}
-                /> : null}
+                />}
 
               <Button
                 m={2}

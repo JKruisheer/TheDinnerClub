@@ -22,6 +22,18 @@ public class Recipe {
 
     @Column(name = "IMAGE_LINK")
     private String imageLink;
+    
+    @Column(name = "PREPARATION_TIME")
+    private int preparationTime;
+
+    @Column(name = "RECIPE_DIFFICULTY")
+    private int difficulty;
+
+    @Column(name = "IS_PUBLIC")
+    private boolean isRecipePublic;
+
+    @Column(name = "RECIPE_LIKES")
+    private int likes;
 
     public Long getId() {
         return id;
@@ -63,19 +75,35 @@ public class Recipe {
         this.imageLink = imageLink;
     }
 
-    //    private Long timeToCreate;
-//
-//    private String originCategory;
-//    private String dietCategory;
-//    private String typeOfMeal;
-//
-//    public boolean isPublic;
-//
-//    private Date createdOn;
-//    private Date updatedOn;
-//
-//    //TODO Join to another table which contains all the images For now an id will do
-//    private Long imageId;
+    public int getPreparationTime() {
+        return preparationTime;
+    }
 
+    public void setPreparationTime(int preparationTime) {
+        this.preparationTime = preparationTime;
+    }
 
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public boolean isRecipePublic() {
+        return isRecipePublic;
+    }
+
+    public void setRecipePublic(boolean recipePublic) {
+        isRecipePublic = recipePublic;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
 }
