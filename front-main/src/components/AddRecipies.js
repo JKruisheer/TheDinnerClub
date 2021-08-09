@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { postARecipe } from "../api/recipiesService";
 import { useFormik } from "formik";
 import { Box, Input, Button } from "@chakra-ui/react";
@@ -11,20 +11,31 @@ import {
   FormLabel,
   Textarea,
   Image,
-  HStack,
-  useColorModeValue,
-  VStack
+  InputGroup,
+  InputRightAddon, Select
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
+import IngredientList from './detailedComponents/IngredientList';
 
 const AddRecipies = () => {
   const [submitting, isSubmitting] = useState(false);
+  const [ingredients, setIngredients] = useState([])
+
+  const callback = useCallback((ingredients) => {
+    setIngredients(ingredients);
+    console.log(ingredients);
+    console.log("hello from the parent callback")
+  }, []);
+
   const toast = useToast();
 
   const formik = useFormik({
     initialValues: {
       title: "",
       description: "",
+      preparationMethod: "",
+      preparationTime: "",
+      difficulty: "",
       imageLink: "",
     },
     onSubmit: (values, { resetForm }) => {
@@ -64,8 +75,8 @@ const AddRecipies = () => {
     },
   });
   return (
-    <Tabs variant="soft-rounded" colorScheme="pink">
-      <TabList>
+    <Tabs colorScheme="white" color="black">
+      <TabList >
         <Tab>Handmatig</Tab>
         <Tab isDisabled>Automatisch</Tab>
       </TabList>
@@ -82,8 +93,8 @@ const AddRecipies = () => {
                 onChange={formik.handleChange}
                 value={formik.values.title}
               />
-              <FormLabel>Description</FormLabel>
-              <Textarea
+              <FormLabel>Small description</FormLabel>
+              <Input
                 id="description"
                 name="description"
                 type="text"
@@ -91,17 +102,47 @@ const AddRecipies = () => {
                 onChange={formik.handleChange}
                 value={formik.values.description}
               />
+              <FormLabel>Preparation method</FormLabel>
+              <Textarea
+                id="preparationMethod"
+                name="preparationMethod"
+                type="text"
+                bg="white"
+                onChange={formik.handleChange}
+                value={formik.values.preparationMethod}
+              />
+              <FormLabel>Preparation time</FormLabel>
+              <InputGroup bg="white" size="sm" w={"50%"}>
+              <Input
+                id="preparationTime"
+                name="preparationTime"
+                type="number"
+                bg="white"
+                onChange={formik.handleChange}
+                value={formik.values.preparationTime}
+                
+              />
+                <InputRightAddon bg="white" children="minutes" />
+              </InputGroup>
+              <FormLabel>Difficulty</FormLabel>
+                <Select id="difficulty" bg="white"
+                   name="difficulty" placeholder="Select option" onChange={formik.handleChange}
+                  value={formik.values.difficulty} w={"50%"}>
+                  <option value="1">Makkelijk</option>
+                  <option value="2">Gemiddeld</option>
+                  <option value="3">Moeilijk</option>
+                </Select>
               <FormLabel>Image link</FormLabel>
-
-                <Input
+              <Input
                   id="imageLink"
                   name="imageLink"
                   type="text"
                   bg="white"
                   onChange={formik.handleChange}
                   value={formik.values.imageLink}
+                  w={"50%"}
                 />
-                {formik.values.imageLink ? <Image
+                {formik.values.imageLink && <Image
                   w={200}
                   h="fit-content"
                   fit="cover"
@@ -111,14 +152,18 @@ const AddRecipies = () => {
                   //borderColor={useColorModeValue("brand.500", "brand.400")}
                   alt="Not a valid image url"
                   src={formik.values.imageLink}
-                /> : null}
+                />}
+                             <FormLabel>Ingredients</FormLabel>
+                <IngredientList parentCallBack = {callback}></IngredientList>
 
               <Button
                 m={2}
                 isLoading={submitting}
                 type="submit"
                 variant="solid"
-                colorScheme="pink"
+                bg="black"
+                color="white"
+                _hover={{ bg: "#FFD700", color: "black" }}
               >
                 Add recipe
               </Button>

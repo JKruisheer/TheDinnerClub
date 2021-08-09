@@ -36,7 +36,9 @@ import AddRecipies from './AddRecipies'
 import {fetchUserData} from '../api/authenticationService';
 import {ColorModeSwitcher} from '../ColorModeSwitcher';
 import jwt_decode from "jwt-decode";
-import { useToast } from "@chakra-ui/react"
+import { useToast } from "@chakra-ui/react";
+import {versionNumber} from "../globalParameters";
+import UserSettings from './UserSettings'
 
 const Dashboard = (props) => {
   const toast = useToast()
@@ -80,10 +82,10 @@ const Dashboard = (props) => {
 
     const LinkItems = [
         { name: 'Home', icon: FiHome },
-        { name: 'Recepten', icon: FiTrendingUp },
-        { name: 'Voeg recept toe', icon: FiCompass },
-        { name: 'Favorieten', icon: FiStar },
-        { name: 'Settings (Not yet implemented)', icon: FiSettings }
+        { name: 'Recipe', icon: FiTrendingUp },
+        { name: 'Add Recipe', icon: FiCompass },
+        { name: 'Leaderboard', icon: FiStar },
+        { name: 'Settings', icon: FiSettings }
       ];
 
     function setCurrentTab(name){
@@ -114,6 +116,9 @@ const Dashboard = (props) => {
                 {link.name}
               </NavItem>
             ))}
+            <Flex position="absolute" align="center"
+              p="6"
+              mx="4" bottom="0px" >{versionNumber}</Flex>
           </Box>
         );
       };
@@ -122,7 +127,6 @@ const Dashboard = (props) => {
         return (
           <Link onClick={() =>
             setCurrentTab(rest.name)
-            
           } 
           
           style={{ textDecoration: 'none' }}>
@@ -189,12 +193,7 @@ const Dashboard = (props) => {
             </Text> */}
       
             <HStack spacing={{ base: '0', md: '6' }}>
-              {/* <IconButton
-                size="lg"
-                variant="ghost"
-                aria-label="open menu"
-                icon={<FiBell />}/>          */}
-                <ColorModeSwitcher></ColorModeSwitcher>
+                {/* <ColorModeSwitcher></ColorModeSwitcher> */}
               <Flex alignItems={'center'}>
                 <Menu>
                   <MenuButton
@@ -227,7 +226,7 @@ const Dashboard = (props) => {
                     bg={useColorModeValue('white', 'gray.900')}
                     borderColor={useColorModeValue('gray.200', 'gray.700')}>
                     <MenuItem>Profile</MenuItem>
-                    <MenuItem>Settings</MenuItem>
+                    <MenuItem onClick={() => setItemName("Settings")}>Settings</MenuItem>
                     <MenuDivider />
                     <MenuItem onClick={logout}>Sign out</MenuItem>
                   </MenuList>
@@ -242,10 +241,12 @@ const Dashboard = (props) => {
           switch (itemName){
             case "Home":
                 return <HomeComponent></HomeComponent>
-            case "Recepten":
+            case "Recipe":
                 return <Recipies></Recipies>
-            case "Voeg recept toe":
+            case "Add Recipe":
                 return <AddRecipies></AddRecipies>
+            case "Settings":
+                return <UserSettings></UserSettings>
               default:
                 return <HomeComponent></HomeComponent>;
           }

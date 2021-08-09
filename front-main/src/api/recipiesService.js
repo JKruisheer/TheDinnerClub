@@ -25,3 +25,13 @@ export const postARecipe=(recipeRequest)=>{
         }
     })
 }
+
+export const LikeRecipe=(recipeId)=>{
+    return axios({
+        method:'POST',
+        url:`${process.env.hostUrl||currentUrl}/api/recipies/recipe/like?id=` + recipeId,
+        headers:{
+            'Authorization':getToken()
+        }
+    })
+}

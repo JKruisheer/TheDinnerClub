@@ -21,6 +21,8 @@ public class DebugRecipiesInserter {
         recipe.setHeaderText("Bloemkool soep");
         recipe.setDescription("Lekkere soep");
         recipe.setImageLink("https://www.leukerecepten.nl/wp-content/uploads/2020/02/bloemkoolsoep_v.jpg");
+        recipe.setPreparationTime(30);
+        recipe.setDifficulty(1);
         recipiesRespository.save(recipe);
 
         Recipe recipe2 = new Recipe();
@@ -28,6 +30,8 @@ public class DebugRecipiesInserter {
         recipe2.setHeaderText("Ertsen soep");
         recipe2.setDescription("minder lekkere soep");
         recipe2.setImageLink("https://www.leukerecepten.nl/wp-content/uploads/2019/12/erwtensoep_v.jpg");
+        recipe2.setPreparationTime(20);
+        recipe2.setDifficulty(2);
         recipiesRespository.save(recipe2);
 
         Recipe recipe3 = new Recipe();
@@ -35,6 +39,8 @@ public class DebugRecipiesInserter {
         recipe3.setHeaderText("Tomatensoep soep");
         recipe3.setDescription("De lekkerste soep");
         recipe3.setImageLink("https://www.leukerecepten.nl/wp-content/uploads/2020/01/basis-tomatensoep.jpg");
+        recipe3.setPreparationTime(50);
+        recipe3.setDifficulty(3);
         recipiesRespository.save(recipe3);
 
         Recipe recipe4 = new Recipe();
@@ -42,6 +48,8 @@ public class DebugRecipiesInserter {
         recipe4.setHeaderText("Chinese tomaten soep");
         recipe4.setDescription("De lekkerste soep");
         recipe4.setImageLink("https://www.leukerecepten.nl/wp-content/uploads/2018/04/chinese-tomatensoep.jpg");
+        recipe4.setPreparationTime(20);
+        recipe4.setDifficulty(2);
         recipiesRespository.save(recipe4);
 
         Recipe recipe5 = new Recipe();
@@ -49,6 +57,8 @@ public class DebugRecipiesInserter {
         recipe5.setHeaderText("Hartige taart");
         recipe5.setDescription("De lekkerste soep");
         recipe5.setImageLink("https://www.koopmans.com/Recepten/K/image-thumb__1448__heading-block/Koopmans_hartige_taartdeeg.webp");
+        recipe5.setPreparationTime(10);
+        recipe5.setDifficulty(1);
         recipiesRespository.save(recipe5);
 
     }

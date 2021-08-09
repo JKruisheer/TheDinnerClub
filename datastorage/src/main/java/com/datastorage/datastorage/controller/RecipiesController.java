@@ -14,7 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/recipies")
@@ -34,6 +36,7 @@ public class RecipiesController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The user does not exists. Please try logging out/in again");
         } else {
             List<Recipe> recipies = recipiesServices.fetchAllRecipies(currentUser.getId());
+            recipies.sort(Comparator.comparing(Recipe::getHeaderText));
             return ResponseEntity.ok(recipies);
         }
     }
@@ -52,8 +55,21 @@ public class RecipiesController {
         recipe.setHeaderText(form.getTitle());
         recipe.setDescription(form.getDescription());
         recipe.setImageLink(form.getImageLink());
+        recipe.setPreparationTime(form.getPreparationTime());
+        recipe.setDifficulty(form.getDifficulty());
         recipiesServices.insertARecipe(recipe);
         return ResponseEntity.ok("Recipe has been added!");
+    }
+
+    @PostMapping("/recipe/like")
+    public ResponseEntity<?> likeARecipe(@RequestParam("id") Long id){
+        if(id != null){
+            boolean success = recipiesServices.findRecipeByIdAndIncrease(id);
+            if(success){
+                return ResponseEntity.ok("Recipe has been liked!");
+            }
+        }
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Not succeeded");
     }
 
 }
