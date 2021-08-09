@@ -20,6 +20,9 @@ public class Recipe {
     @Column(name = "RECIPE_DESCRIPTION")
     private String description;
 
+    @Column(name = "RECIPE_PREP_METHOD")
+    private String preparationMethod;
+
     @Column(name = "IMAGE_LINK")
     private String imageLink;
     

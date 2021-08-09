@@ -80,7 +80,6 @@ function Cards({values, pcb}){
             }
           />
         </Flex>
-
         <chakra.h2
           color={useColorModeValue("gray.800", "white")}
           fontSize={{ base: "2xl", md: "3xl" }}
@@ -122,24 +121,14 @@ function Cards({values, pcb}){
         <Flex justifyContent="end" mt={4}>
           {/* <Button m={2} onClick={onToggle} whiteSpace= "normal">{values.headerText}</Button> */}
           <HStack 
-          spacing={{ base: '0', md: '40' }}
           >
-            <Button
-              m={2}
-              onClick={() => {
-                pcb();
-              }}
-            >
-              Details
-            </Button>
-            <Flex alignContent="right">
-            {/* <Flex align="right"> */}
-              <Menu> 
-                <MenuButton
+                          <Menu > 
+                <MenuButton mr={5}
                   as={IconButton}
                   aria-label="Options"
                   icon={<HamburgerIcon />}
                   variant="outline"
+                  _hover={{ bg: "#FFD700", color: "black" }}
 
                 />
                 <MenuList>
@@ -149,7 +138,16 @@ function Cards({values, pcb}){
                   <MenuItem command="⌘O">Open File...</MenuItem>
                 </MenuList>
               </Menu>
-            </Flex>
+            <Button
+              m={2}
+              onClick={() => {
+                pcb();
+              }}
+              variant="outline"
+              _hover={{ bg: "#FFD700", color: "black" }}
+            >
+              Go to the recipe details
+            </Button>
           </HStack>
         </Flex>
 
