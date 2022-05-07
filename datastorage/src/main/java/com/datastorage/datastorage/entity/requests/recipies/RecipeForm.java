@@ -1,11 +1,15 @@
 package com.datastorage.datastorage.entity.requests.recipies;
 
+import java.util.List;
+
 public class RecipeForm {
     private String title;
     private String description;
     private String imageLink;
     private int preparationTime;
     private int difficulty;
+    private String preparationMethod;
+    private List<IngredientList> ingredients;
 
     public RecipeForm(String title, String description, String imageLink, int preparationTime, int difficulty) {
         this.title = title;
@@ -53,5 +57,21 @@ public class RecipeForm {
 
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public String getPreparationMethod() {
+        return preparationMethod;
+    }
+
+    public void setPreparationMethod(String preparationMethod) {
+        this.preparationMethod = preparationMethod;
+    }
+
+    public List<IngredientList> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<IngredientList> ingredients) {
+        this.ingredients = ingredients;
     }
 }

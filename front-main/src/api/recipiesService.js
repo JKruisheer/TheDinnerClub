@@ -35,3 +35,13 @@ export const LikeRecipe=(recipeId)=>{
         }
     })
 }
+
+export const deleteARecipe=(recipeId)=>{
+    return axios({
+        method:'DELETE',
+        url:`${process.env.hostUrl||currentUrl}/api/recipies/recipe/delete?id=` + recipeId,
+        headers:{
+            'Authorization':getToken()
+        }
+    })
+}

@@ -1,12 +1,19 @@
 package com.datastorage.datastorage.beans.postcontruct;
 
+import com.datastorage.datastorage.entity.Ingredients;
 import com.datastorage.datastorage.entity.Recipe;
+import com.datastorage.datastorage.repository.IngredientRepository;
 import com.datastorage.datastorage.repository.RecipiesRespository;
+import com.datastorage.datastorage.service.IngredientsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 @Component
 public class DebugRecipiesInserter {
@@ -14,7 +21,11 @@ public class DebugRecipiesInserter {
     @Autowired
     private RecipiesRespository recipiesRespository;
 
+    @Autowired
+    private IngredientRepository ingredientRepository;
+
     protected void insertRecipies(){
+
 
         Recipe recipe = new Recipe();
         recipe.setUserId(1L);
@@ -24,6 +35,12 @@ public class DebugRecipiesInserter {
         recipe.setPreparationTime(30);
         recipe.setDifficulty(1);
         recipiesRespository.save(recipe);
+
+        Ingredients ingredients = new Ingredients();
+        ingredients.setRecipe(recipe);
+        ingredients.setIngredientName("Zulke grote bloemkolen");
+        ingredientRepository.save(ingredients);
+
 
         Recipe recipe2 = new Recipe();
         recipe2.setUserId(1L);

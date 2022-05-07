@@ -1,50 +1,44 @@
-import React, {useState} from "react";
-import { Collapse, Button, Box, ButtonGroup, IconButton } from "@chakra-ui/react"
-import { useDisclosure, Text } from "@chakra-ui/react"
+import React, { useState } from "react";
 import {
-  Flex,
-  chakra,
-  useColorModeValue,
-  Image
-
-} from '@chakra-ui/react';
-import { AiFillHeart } from "react-icons/ai"
-import { GiCookingPot } from "react-icons/gi"
-import { HamburgerIcon } from "@chakra-ui/icons"
-import { VscBook } from "react-icons/vsc"
+  Collapse,
+  Button,
+  Box,
+  ButtonGroup,
+  IconButton,
+} from "@chakra-ui/react";
+import { useDisclosure, Text } from "@chakra-ui/react";
+import { Flex, chakra, useColorModeValue, Image } from "@chakra-ui/react";
+import { AiFillHeart } from "react-icons/ai";
+import { GiCookingPot } from "react-icons/gi";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import { VscBook } from "react-icons/vsc";
 import { LikeRecipe } from "../../api/recipiesService";
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  HStack
-} from "@chakra-ui/react"
+import { Menu, MenuButton, MenuList, MenuItem, HStack } from "@chakra-ui/react";
 
-const Recipebox = ({ values, parentCallBack }) => {
+const Recipebox = ({ values, parentCallBack, deleteCallback }) => {
   return (
     <Box m={2}>
-      <Cards values={values} pcb = {parentCallBack}></Cards>
+      <Cards values={values} pcb={parentCallBack} dcb={deleteCallback}></Cards>
     </Box>
   );
 };
 
-function Cards({values, pcb}){
+function Cards({ values, pcb, dcb }) {
   const [numberOfLikes, setNumberOfLikes] = useState(values.likes);
   const [isLinking, setIsliking] = useState(false);
-  
+
   function increaseValuesCounter(event) {
     setIsliking(true);
-    (LikeRecipe(values.id).then((response) => {
-        console.log(response.data)
+    LikeRecipe(values.id)
+      .then((response) => {
         setIsliking(false);
-    }).catch((error) => {
-      console.log(error.data)
-      setIsliking(false);
-    }))
+      })
+      .catch((error) => {
+        setIsliking(false);
+      });
     setNumberOfLikes(numberOfLikes + 1);
   }
-  
+
   const { isOpen, onToggle } = useDisclosure();
   return (
     <Flex
@@ -118,26 +112,32 @@ function Cards({values, pcb}){
             </Button>
           </ButtonGroup>
         </Flex>
-        <Flex justifyContent="end" mt={4}>
+        <Flex mt={4}>
           {/* <Button m={2} onClick={onToggle} whiteSpace= "normal">{values.headerText}</Button> */}
-          <HStack 
-          >
-                          <Menu > 
-                <MenuButton mr={5}
-                  as={IconButton}
-                  aria-label="Options"
-                  icon={<HamburgerIcon />}
-                  variant="outline"
-                  _hover={{ bg: "#FFD700", color: "black" }}
-
-                />
-                <MenuList>
-                  <MenuItem command="⌘T">New Tab</MenuItem>
-                  <MenuItem command="⌘N">New Window</MenuItem>
+          <HStack>
+            <Menu>
+              <MenuButton
+                mr={5}
+                as={IconButton}
+                aria-label="Options"
+                icon={<HamburgerIcon />}
+                variant="outline"
+                _hover={{ bg: "#FFD700", color: "black" }}
+              />
+              <MenuList>
+                <MenuItem
+                  command="⌘T"
+                  onClick={() => {
+                    dcb((values.id));
+                  }}
+                >
+                  Delete {values.headerText}
+                </MenuItem>
+                {/* <MenuItem command="⌘N">New Window</MenuItem>
                   <MenuItem command="⌘⇧N">Open Closed Tab</MenuItem>
-                  <MenuItem command="⌘O">Open File...</MenuItem>
-                </MenuList>
-              </Menu>
+                  <MenuItem command="⌘O">Open File...</MenuItem> */}
+              </MenuList>
+            </Menu>
             <Button
               m={2}
               onClick={() => {
@@ -166,6 +166,6 @@ function Cards({values, pcb}){
       </Box>
     </Flex>
   );
-};
+}
 
 export default Recipebox;

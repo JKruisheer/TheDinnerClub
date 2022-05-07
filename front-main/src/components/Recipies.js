@@ -4,6 +4,7 @@ import Recipebox from './detailedComponents/Recipebox';
 import DetailedRecipebox from './detailedComponents/DetailedRecipeBox';
 import { Input, SimpleGrid } from "@chakra-ui/react"
 import { useMediaQuery } from "@chakra-ui/react"
+import { deleteARecipe } from "../api/recipiesService";
 
 const Recipies = () => {
     const [recipies, setRecipies] = useState([]);
@@ -11,23 +12,31 @@ const Recipies = () => {
     const [rendered, setRendered] = useState(true)
     const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)")
     
-
-    const callback = useCallback(() => {
+    const recipeBoxCallback = useCallback(() => {
       setRendered(false);
     }, []);
 
-    const callbackTrue = useCallback(() => {
+    const detailedRecipeBoxCallback = useCallback(() => {
       setRendered(true);
     }, []);
 
+    const deleteCallbackFromRecipeBox = useCallback((id) => {
+      recipies.forEach((recipient) => {console.log(recipient.id)})
+
+      deleteARecipe(id)
+      .then((response) => {
+        setRecipies(recipies.filter(recipient => recipient.id !== id))
+      })
+      .catch((error) => {
+        console.log(error.data);
+      });
+    })
+
     useEffect(() => {
         let unmounted = false;
-        
         if(!unmounted){
             fetchAllRecipies().then((response)=>{
-                console.log(response.data)
                 setRecipies(response.data)
-                console.log(recipies)
             })
        }
        return () => unmounted = true;
@@ -45,12 +54,12 @@ const Recipies = () => {
                 if (recipies.headerText.toUpperCase().includes(value.toUpperCase())) {
                   return true
                 }
-              }).map(recipies =>
-              <Recipebox key={recipies.id} values={recipies} parentCallBack = {callback}></Recipebox>
+              }).map(rec =>
+              <Recipebox key={rec.id} values={rec} parentCallBack = {recipeBoxCallback} deleteCallback = {deleteCallbackFromRecipeBox}></Recipebox>
             )
           }
       </SimpleGrid> : null}
-      {!rendered ? <DetailedRecipebox parentCallBack = {callbackTrue}></DetailedRecipebox> : null}
+      {!rendered ? <DetailedRecipebox parentCallBack = {detailedRecipeBoxCallback}></DetailedRecipebox> : null}
     </div>
     )
 }

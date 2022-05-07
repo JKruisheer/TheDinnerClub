@@ -1,10 +1,13 @@
 package com.datastorage.datastorage.controller;
 
 
+import com.datastorage.datastorage.entity.Ingredients;
 import com.datastorage.datastorage.entity.Recipe;
 import com.datastorage.datastorage.entity.User;
 import com.datastorage.datastorage.entity.requests.SignupForm;
+import com.datastorage.datastorage.entity.requests.recipies.IngredientList;
 import com.datastorage.datastorage.entity.requests.recipies.RecipeForm;
+import com.datastorage.datastorage.repository.IngredientRepository;
 import com.datastorage.datastorage.repository.UserDetailsRepository;
 import com.datastorage.datastorage.service.RecipiesServices;
 import org.apache.coyote.Response;
@@ -28,6 +31,9 @@ public class RecipiesController {
 
     @Autowired
     UserDetailsRepository userDetailsRepository;
+
+    @Autowired
+    IngredientRepository ingredientRepository;
 
     @GetMapping("/all")
     public ResponseEntity<?> fetchAllRecipies(Principal user){
@@ -58,6 +64,13 @@ public class RecipiesController {
         recipe.setPreparationTime(form.getPreparationTime());
         recipe.setDifficulty(form.getDifficulty());
         recipiesServices.insertARecipe(recipe);
+        for(IngredientList ing : form.getIngredients()){
+            Ingredients ingredient = new Ingredients();
+            ingredient.setIngredientName(ing.getText());
+            ingredient.setRecipe(recipe);
+            ingredientRepository.save(ingredient);
+        }
+
         return ResponseEntity.ok("Recipe has been added!");
     }
 
@@ -70,6 +83,12 @@ public class RecipiesController {
             }
         }
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Not succeeded");
+    }
+
+    @DeleteMapping("/recipe/delete")
+    public ResponseEntity<?> deleteRecipe(@RequestParam("id") Long id){
+        recipiesServices.deleteARecordById(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("record has been deleted!");
     }
 
 }

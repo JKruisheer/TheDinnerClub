@@ -5,7 +5,6 @@ import com.datastorage.datastorage.repository.RecipiesRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +16,13 @@ public class RecipiesServices {
 
     public List<Recipe> fetchAllRecipies(long userId){
         return recipiesRespository.findByUserId(userId);
+    }
+
+    /**
+     *  Delete a record by first finding it then calling delete on it.
+     */
+    public void deleteARecordById(Long id){
+        recipiesRespository.findById(id).ifPresent((rec) -> recipiesRespository.delete(rec));
     }
 
     public void insertARecipe(Recipe rec){
