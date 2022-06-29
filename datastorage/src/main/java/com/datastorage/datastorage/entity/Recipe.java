@@ -1,11 +1,19 @@
 package com.datastorage.datastorage.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "TDC_RECIPIES")
-public class Recipe {
+public class Recipe implements Serializable {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +45,12 @@ public class Recipe {
 
     @Column(name = "RECIPE_LIKES")
     private int likes;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "recipe",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    private Set<Ingredients> ingredients;
 
     public Long getId() {
         return id;
@@ -108,5 +122,21 @@ public class Recipe {
 
     public void setLikes(int likes) {
         this.likes = likes;
+    }
+
+    public String getPreparationMethod() {
+        return preparationMethod;
+    }
+
+    public void setPreparationMethod(String preparationMethod) {
+        this.preparationMethod = preparationMethod;
+    }
+
+    public Set<Ingredients> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredients> ingredients) {
+        this.ingredients = ingredients;
     }
 }

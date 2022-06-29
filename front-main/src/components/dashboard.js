@@ -193,7 +193,7 @@ const Dashboard = (props) => {
             </Text> */}
       
             <HStack spacing={{ base: '0', md: '6' }}>
-                {/* <ColorModeSwitcher></ColorModeSwitcher> */}
+                <ColorModeSwitcher></ColorModeSwitcher>
               <Flex alignItems={'center'}>
                 <Menu>
                   <MenuButton

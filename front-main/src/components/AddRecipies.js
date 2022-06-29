@@ -19,12 +19,12 @@ import IngredientList from './detailedComponents/IngredientList';
 
 const AddRecipies = () => {
   const [submitting, isSubmitting] = useState(false);
-  const [ingredients, setIngredients] = useState([])
+  const [ingredients, setIngredients] = useState([]);
+  const [refreshChild, setRefreshChild] = useState(false);
 
   const callback = useCallback((ingredients) => {
     setIngredients(ingredients);
-    console.log(ingredients);
-    console.log("hello from the parent callback")
+    // formik.initialValues.ingredients = ingredients;
   }, []);
 
   const toast = useToast();
@@ -36,9 +36,11 @@ const AddRecipies = () => {
       preparationMethod: "",
       preparationTime: "",
       difficulty: "",
-      imageLink: "",
+      imageLink: ""
     },
     onSubmit: (values, { resetForm }) => {
+      console.log(values)
+      values.ingredients = ingredients;
       isSubmitting(true);
       postARecipe(values)
         .then((response) => {
@@ -52,6 +54,7 @@ const AddRecipies = () => {
               duration: 5000,
               isClosable: true,
             });
+            setRefreshChild(!refreshChild)
           } else {
             toast({
               title: "Invalid recipe.",
@@ -154,7 +157,7 @@ const AddRecipies = () => {
                   src={formik.values.imageLink}
                 />}
                              <FormLabel>Ingredients</FormLabel>
-                <IngredientList parentCallBack = {callback}></IngredientList>
+                <IngredientList parentCallBack = {callback} refreshMyChild = {refreshChild} ></IngredientList>
 
               <Button
                 m={2}

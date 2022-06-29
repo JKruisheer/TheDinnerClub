@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Ingredient from './Ingredient'
 import IngredientForm from './IngredientForm';
 import {Box} from "@chakra-ui/react"
 
-const IngredientList = ({parentCallBack}) => {
-    const [todos, setTodos] = useState([]);
+const IngredientList = ({parentCallBack, refreshMyChild}) => {
+
+  const [todos, setTodos] = useState([]);
+  useEffect(() => {
+    setTodos([])
+  }, [refreshMyChild]);
 
   const addTodo = todo => {
     if (!todo.text || /^\s*$/.test(todo.text)) {
